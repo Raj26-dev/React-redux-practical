@@ -51,6 +51,19 @@ const Home = () => {
         }
     }
 const [isEdit, setIsEdit]= useState(false);
+const [userDetail, setUserDetail] = useState({
+    fname:"",
+    lname:"",
+    email:""
+})
+
+const handaleUserDetailChange =(evt)=> {
+    const value = evt.target.value;
+    setUserDetail({
+    ...userDetail,
+    [evt.target.name]: value
+  });
+}
 const [curreItem, setCurreItem] = useState(0)
     const handelEdit =(obj)=> {
         if(window.confirm("Are you sure to delete user? please see value in console and localStorage")){
@@ -81,14 +94,14 @@ const [curreItem, setCurreItem] = useState(0)
 
                                 <StyledTableRow key={index}>
                                     <StyledTableCell component="th" scope="row">
-                                 {   isEdit && curreItem === value.id  ? <input type="text" name="fname" placeholder='First Name'/> : <p> {value.first_name}</p>}
+                                 {   isEdit && curreItem === value.id  ? <input type="text" name="fname" placeholder='First Name' value={userDetail.fname} onChange={handaleUserDetailChange}/> : <p> {value.first_name}</p>}
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                    {   isEdit && curreItem === value.id  ? <input type="text" name="lname" placeholder='Last Name'/> : <p>  {value.last_name}</p>}
+                                    {   isEdit && curreItem === value.id  ? <input type="text" name="lname" placeholder='Last Name' value={userDetail.lname} onChange={handaleUserDetailChange}/> : <p>  {value.last_name}</p>}
                                        
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                    {   isEdit && curreItem === value.id  ? <input type="text" name="email" placeholder='Email'/> : <p> {value.email}</p>}
+                                    {   isEdit && curreItem === value.id  ? <input type="text" name="email" placeholder='Email' value={userDetail.email} onChange={handaleUserDetailChange}/> : <p> {value.email}</p>}
                                         
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
