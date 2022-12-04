@@ -64,6 +64,13 @@ const saveHandler =(id, avatar)=>{
     console.log("userdetail", userDetail,)
     dispatchs(edtUserUpdate({id, ...userDetail, avatar}))
     setIsEdit(false)
+    setUserDetail({
+    
+        first_name:"",
+        last_name:"",
+        email:"",
+        avatar: ""
+    })
 }
 
 const handaleUserDetailChange =(evt)=> {
@@ -75,7 +82,7 @@ const handaleUserDetailChange =(evt)=> {
 }
 const [curreItem, setCurreItem] = useState(0)
     const handelEdit =(obj)=> {
-        if(window.confirm("Are you sure to delete user? please see value in console and localStorage")){
+        if(window.confirm("Are you sure to Edit user? ")){
             // dispatchs(edtUser(obj));
             setIsEdit(true);
             setCurreItem(obj.id)
