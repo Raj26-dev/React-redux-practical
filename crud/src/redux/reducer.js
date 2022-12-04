@@ -45,6 +45,31 @@ console.log([...getDeletItem, ...stateData.filter(item => item.id === action.pay
                 user: todo4,
                 users: state.todos[action.payload],
             }
+            break;
+            case type.UPDATE_EDIT:
+                const editsData = state && state.user && state.user.data;
+                const updateEdit = editsData.map((todo) =>{
+                   if(action.payload.id === todo.id){
+                    return action.payload
+                   }else{return todo}
+                }
+                 
+            );
+            console.log("upEDit", {
+                ...state,
+                user:{
+                    data: updateEdit
+                }
+            })
+            window.localStorage.setItem("UpdateEdit", JSON.stringify({...state,user:{
+                data: updateEdit
+            }}))
+                return{
+                    ...state,
+                    user:{
+                        data: updateEdit
+                    }
+                }
 
         default:
             return state;

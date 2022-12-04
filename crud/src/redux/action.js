@@ -17,6 +17,11 @@ const editUser = (obj)=> ({
     payload: obj
 })
 
+const upEdit = (payload)=>( {
+    type: type.UPDATE_EDIT,
+    payload: payload
+})
+
 export const loadUser = () => {
     return function (dispatch) {
         axios.get(getUserApi)
@@ -36,5 +41,12 @@ export const deluser = (id) => {
 export const edtUser =(obj)=> {
     return function(dispatch) {
         dispatch(editUser((obj)))
+    }
+}
+
+export const edtUserUpdate =(obj)=> {
+    console.log(obj)
+    return function(dispatch) {
+        dispatch(upEdit((obj)))
     }
 }

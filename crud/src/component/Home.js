@@ -11,7 +11,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useSelector, useDispatch } from 'react-redux';
-import { deluser, edtUser, loadUser } from '../redux/action';
+import { deluser, edtUser, loadUser, edtUserUpdate } from '../redux/action';
 
 // material ui custom style 
 
@@ -50,12 +50,21 @@ const Home = () => {
             dispatchs(deluser(id));
         }
     }
+    const [editData, setEditData] = useState(user.data)
 const [isEdit, setIsEdit]= useState(false);
 const [userDetail, setUserDetail] = useState({
-    fname:"",
-    lname:"",
-    email:""
+    
+    first_name:"",
+    last_name:"",
+    email:"",
+    avatar: ""
 })
+
+const saveHandler =(id, avatar)=>{
+    console.log("userdetail", userDetail,)
+    dispatchs(edtUserUpdate({id, ...userDetail, avatar}))
+    setIsEdit(false)
+}
 
 const handaleUserDetailChange =(evt)=> {
     const value = evt.target.value;
@@ -94,10 +103,10 @@ const [curreItem, setCurreItem] = useState(0)
 
                                 <StyledTableRow key={index}>
                                     <StyledTableCell component="th" scope="row">
-                                 {   isEdit && curreItem === value.id  ? <input type="text" name="fname" placeholder='First Name' value={userDetail.fname} onChange={handaleUserDetailChange}/> : <p> {value.first_name}</p>}
+                                 {   isEdit && curreItem === value.id  ? <input type="text" name="first_name" placeholder='First Name' value={userDetail.first_name} onChange={handaleUserDetailChange}/> : <p> {value.first_name}</p>}
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                    {   isEdit && curreItem === value.id  ? <input type="text" name="lname" placeholder='Last Name' value={userDetail.lname} onChange={handaleUserDetailChange}/> : <p>  {value.last_name}</p>}
+                                    {   isEdit && curreItem === value.id  ? <input type="text" name="last_name" placeholder='Last Name' value={userDetail.last_name} onChange={handaleUserDetailChange}/> : <p>  {value.last_name}</p>}
                                        
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
@@ -112,7 +121,7 @@ const [curreItem, setCurreItem] = useState(0)
                                         <ButtonGroup variant="contained" aria-label="outlined primary button group">
                                             <Button color="secondary" style={{marginRight:"5px"}}  onClick={()=> handelDelete(value.id)}>Delet</Button>
                                             {
-                                                 isEdit && curreItem === value.id ? <Button color="primary" >Save</Button> :<Button color="primary" onClick={()=> handelEdit(value)}>Edit</Button>
+                                                 isEdit && curreItem === value.id ? <Button color="primary" onClick={()=>saveHandler(value.id, value.avatar)}>Save</Button> :<Button color="primary" onClick={()=> handelEdit(value)}>Edit</Button>
                                             }
                                             
                                            
